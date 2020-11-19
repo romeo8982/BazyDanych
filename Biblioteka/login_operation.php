@@ -18,6 +18,7 @@ $login=$_POST['login'];
 $password=$_POST['password'];
 
 $login = htmlentities($login,ENT_QUOTES,"UTF-8");//sql injaction
+$password = htmlentities($password,ENT_QUOTES,"UTF-8");//sql injaction
 
 if($result=@$connect->query(sprintf("SELECT * FROM person WHERE login = '%s'",
 	mysqli_real_escape_string($connect,$login))))//if(it doesn't work becouse of some sql mistake) sql injaction

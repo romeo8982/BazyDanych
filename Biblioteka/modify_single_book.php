@@ -50,14 +50,20 @@ if(isset($_SESSION['log'])&&($_SESSION['log']==true)&&!empty($_POST))
                 ?>
                 <li id = 'adminMenu'><a href="#">Panel admina</a>
                     <ul>
-                        <li>
+                       <li>
                             <a href="addBook.php">Dodaj książkę</a>
                         </li>
                         <li>
                             <a href="searchBookToModify.php">Modyfikuj książki</a>
                         </li>
+						<li>
+                            <a href="searchBookToDelete.php">Usuń książki</a>
+                        </li>
                         <li>
                             <a href="searchUserToModify.php">Modyfikuj użytkowników</a>
+                        </li>
+						<li>
+                            <a href="searchUserToDelete.php">Usuń użytkowników</a>
                         </li>
                     </ul>
                     <?php
