@@ -79,21 +79,62 @@ if(isset($_SESSION['log'])&&($_SESSION['log']==true)&&!empty($_POST))
     <div class = "web_page" >
     <?php
     $_SESSION['idBookToModify'] = $_POST['modify'];
+	$idToFill=$_POST['modify'];
     $date = date('Y');
-    echo "<h2> Modyfikuj książkę</h2>";
-    echo "<form action= 'modify_single_book.php' method = 'POST'>";
-    echo "<input type='textSearch'pattern='[a-zA-Z0-9\s]{1,}' name='tytul' placeholder= 'Tytul'><br>";
-    echo "<input type='textSearch' pattern='[a-zA-Z\s]{1,}' name='autor' placeholder = 'Autor'><br>";
-    echo" <input type='textSearch' name='wydawnictwo' placeholder = 'Wydawnictwo'><br>";
-    echo" <input type='number' min='1500' max='$date' name='dataW' placeholder = 'Data wydania' ><br>";
-    echo" <input type='number' min='0' name='ilosc' placeholder = 'Ilosc'><br>";
-    echo"<select name = 'condition'> 
-                <option value = 'nowa'>Nowa</option>
-                <option value = 'używana'>Używana</option>
-         </select><br>";
-    echo " <button name = 'modifyButton' class = 'button' > Zmien  </button> ";
-    echo" </form>";
-    
+	
+	require_once "connect.php";
+    $polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
+    if($polaczenie->connect_errno!=0)
+    {
+        echo "Error: ".$polaczenie->connect_errno."Opis: ".$polaczenie->connect_error;
+    }
+    else
+    {
+		$resultCopy = $polaczenie->query("SELECT * FROM copy_book WHERE idBook = '$idToFill'");
+		$rowCopy = $resultCopy->fetch_assoc();
+		
+		$idBookCopy = $rowCopy['idBook'];
+		
+		$resultBook = $polaczenie->query("SELECT * FROM book WHERE id = '$idBookCopy'");
+		
+		$rowBook = $resultBook->fetch_assoc();
+		
+		echo "<h2> Modyfikuj książkę</h2>";
+		echo "<form action= 'modify_single_book.php' method = 'POST'>";
+		echo "<label>Tytuł</label><br/>";
+		$titleCopy = $rowBook['title'];
+		echo "<input type='textSearch'pattern='[a-zA-Z0-9\s]{1,}' placeholder = '$titleCopy' name='tytul'><br>";
+		echo "<label>Autor</label><br/>";
+		$authorCopy = $rowBook['author'];
+		echo "<input type='textSearch' pattern='[a-zA-Z\s]{1,}' placeholder = '$authorCopy' name='autor'><br>";
+		echo "<label>Wydawnictwo</label><br/>";
+		$publishingHouseCopy = $rowCopy['publishingHouse'];
+		echo" <input type='textSearch' placeholder = '$publishingHouseCopy' name='wydawnictwo'><br>";
+		echo "<label>Data wydania</label><br/>";
+		$publicationDateCopy = $rowCopy['publicationDate'];
+		echo" <input type='number' placeholder = '$publicationDateCopy' min='1500' max='$date' name='dataW'><br>";
+		echo "<label>Ilość</label><br/>";
+		$amountOfAllCopy = $rowBook['amountOfAll'];
+		echo" <input type='number' placeholder = '$amountOfAllCopy' min='0' name='ilosc'><br>";
+		echo "<label>Kondycja</label><br/>";
+		$conditionOfCopy = $rowCopy['conditionOfCopy'];
+		if($conditionOfCopy=='nowa')
+		{
+			echo"<select name = 'condition'> 
+					<option selected value = 'nowa'>Nowa</option>
+					<option value = 'używana'>Używana</option>
+				</select><br>";
+		}
+		else
+		{
+			echo"<select name = 'condition'> 
+					<option value = 'nowa'>Nowa</option>
+					<option selected value = 'używana'>Używana</option>
+				</select><br>";
+		}
+		echo " <button name = 'modifyButton' onclick =\"return confirm('Czy jestes pewien?');\" class = 'button' > Zmien  </button> ";
+		echo" </form>";
+	}
 }
 else
 header("Location: index.php");

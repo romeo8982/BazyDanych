@@ -78,17 +78,40 @@ if(isset($_SESSION['log'])&&($_SESSION['log']==true)&&!empty($_POST))
 
     <div class = "web_page" >
     <?php
-   
     $_SESSION['idUserToModify'] = $_POST['modify'];
-    echo "<h2>Modyfikuj użytkownika</h2>";
-    echo "<form action= 'modify_single_user.php' method = 'POST'>";
-    echo " <input type='textSearch' name='name' placeholder = 'Imię ' pattern='[a-zA-Z]{1,}'><br>";
-    echo" <input type='textSearch' name='surname' placeholder = 'Nazwisko' pattern='[a-zA-Z]{1,}'><br>";
-    echo" <input type='textSearch' name='login' placeholder = 'login ' pattern='[a-zA-Z0-9]{1,}'><br>";
-    echo" <input type='textSearch' name='email' placeholder = 'email '><br>";
-    echo"  <input type='password' id = 'passwordModify' name='password' placeholder = 'hasło '><br>";
-    echo " <button name = 'modifyButton' class = 'button' > Zmien  </button> ";
-    echo" </form>";
+	$idToFill=$_POST['modify'];
+	
+	require_once "connect.php";
+    $polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
+    if($polaczenie->connect_errno!=0)
+    {
+        echo "Error: ".$polaczenie->connect_errno."Opis: ".$polaczenie->connect_error;
+    }
+    else
+    {
+		$resultPerson = $polaczenie->query("SELECT * FROM person WHERE id = '$idToFill'");
+		
+		$rowPerson = $resultPerson->fetch_assoc();
+		
+		echo "<h2>Modyfikuj użytkownika</h2>";
+		echo "<form action= 'modify_single_user.php' method = 'POST'>";
+		echo "<label>Imię</label><br/>";
+		$firstName = $rowPerson['firstName'];
+		echo " <input type='textSearch' placeholder = '$firstName' name='name' pattern='[a-zA-Z]{1,}'><br>";
+		echo "<label>Nazwisko</label><br/>";
+		$surname = $rowPerson['surname'];
+		echo" <input type='textSearch' placeholder = '$surname' name='surname' pattern='[a-zA-Z]{1,}'><br>";
+		echo "<label>Login</label><br/>";
+		$login = $rowPerson['login'];
+		echo" <input type='textSearch' placeholder = '$login' name='login' pattern='[a-zA-Z0-9]{1,}'><br>";
+		echo "<label>Email</label><br/>";
+		$email = $rowPerson['email'];
+		echo" <input type='textSearch' placeholder = '$email' name='email'><br>";
+		echo "<label>Hasło</label><br/>";
+		echo"  <input type='password' id = 'passwordModify' name='password'><br>";
+		echo " <button name = 'modifyButton' onclick =\"return confirm('Czy jestes pewien?');\" class = 'button' > Zmien  </button> ";
+		echo" </form>";
+	}
 }
 else
 header("Location: index.php");

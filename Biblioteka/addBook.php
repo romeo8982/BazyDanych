@@ -80,13 +80,19 @@ if(isset($_SESSION['log'])&&($_SESSION['log']==true))
     <div class = "web_page" >
     <?php
     $date = date('Y');
-    echo "<h2>Dodaj książkę</h2>";
+    echo "<h2>Dodaj książki</h2>";
     echo "<form action= 'add_single_book.php' method = 'POST'>";    //formularz
-    echo "  <input type='textSearch' name='tytul' required placeholder = 'Tytul' pattern='[a-zA-Z0-9\s]{1,}'><br>";
-    echo" <input type='textSearch' name='autor' required placeholder = 'Autor' pattern='[a-zA-Z\s]{1,}'><br>";
-    echo"  <input type='textSearch' name='wydawnictwo' required placeholder = 'Wydawnictwo'><br>";
-    echo" <input type='number' min='1500' max='$date' name='dataW' required placeholder = 'Rok wydania'><br>";
-    echo"  <input type='number' min='0' name='ilosc' required placeholder = 'Ilosc'><br>";
+	echo "<label>Tytuł</label><br/>";
+    echo "  <input type='textSearch' name='tytul' pattern='[a-zA-Z0-9\s]{1,}'><br/>";
+	echo "<label>Autor</label><br/>";
+    echo" <input type='textSearch' name='autor' pattern='[a-zA-Z\s]{1,}'><br/>";
+	echo "<label>Wydawnictwo</label><br/>";
+    echo"  <input type='textSearch' name='wydawnictwo'><br/>";
+	echo "<label>Rok wydania</label><br/>";
+    echo" <input type='number' min='1500' max='$date' name='dataW'><br/>";
+	echo "<label>Ilość</label><br/>";
+    echo"  <input type='number' min='0' name='ilosc' ><br/>";
+	echo "<label>Kondycja</label><br/>";
     echo"<select name = 'condition'> 
                 <option value = 'nowa'>Nowa</option>
                 <option value = 'używana'>Używana</option>

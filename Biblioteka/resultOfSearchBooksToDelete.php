@@ -77,6 +77,15 @@ if(isset($_SESSION['log'])&&($_SESSION['log']==true))
     </header>
 
     <div class = "web_page" >
+	
+	<script>
+	function myFunction(){
+	var element  = document.getElementById('myForm');
+	element.addEventListener('submit', function(){
+	return confirm('Czy jestes pewein?');
+	}, false);
+	</script>
+	
     <?php
     require_once "connect.php";
     $polaczenie = @new mysqli($host, $db_user, $db_password, $db_name);
@@ -108,7 +117,7 @@ if(isset($_SESSION['log'])&&($_SESSION['log']==true))
                 $rowCopy = $resultCopy->fetch_assoc();
                  echo " <table id = 'tableResult' border ='1' cellpadding = '10' cellspacing = '0' width = '35%'>";
                  echo "<br>";
-                 echo " <form action= 'deleteBook.php' method = 'POST'> ";
+                 echo " <form action= 'deleteBook.php' method = 'POST' id='myForm'> ";
                  echo "<br>";
                  echo " <tr> <td id='tytul'>Id ksiazki </td>  <td>"; 
                  $idCopy = $rowCopy['id'];
@@ -131,7 +140,7 @@ if(isset($_SESSION['log'])&&($_SESSION['log']==true))
               
                  echo "   </table> ";
                  echo"<div class = 'clearfix'></div>";
-                 echo " <button name = 'delete' value = '$idBook' class = 'button' > Usuń </button> ";
+                 echo " <button type='submit' onclick =\"return confirm('Czy jestes pewien?');\" name = 'delete' value = '$idBook' class = 'button' > Usuń </button> ";
                  echo "</form>";
                  
                  

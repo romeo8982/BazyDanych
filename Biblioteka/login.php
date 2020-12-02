@@ -7,7 +7,7 @@
 		$_everything_ok=true;
 		//Sprawdź login
 		$a_login=$_POST['a_login'];
-		//Sprawdzenie dł nicka
+		//Sprawdzenie dł
 		if((strlen($a_login)<3)||(strlen($a_login)>20))
 		{
 			$_everything_ok=false;
@@ -46,7 +46,7 @@
 		$password_hash = password_hash($a_password1, PASSWORD_DEFAULT);
 
 		$a_first_name=$_POST['a_first_name'];
-		//Sprawdzenie dł nicka
+		//Sprawdzenie dł 
 		if((strlen($a_first_name)<2)||(strlen($a_first_name)>20))
 		{
 			$_everything_ok=false;
@@ -54,7 +54,7 @@
 		}
 		
 		$a_surname=$_POST['a_surname'];
-		//Sprawdzenie dł nicka
+		//Sprawdzenie dł 
 		if((strlen($a_surname)<2)||(strlen($a_surname)>20))
 		{
 			$_everything_ok=false;
@@ -197,9 +197,11 @@
 						<div id="label_login" class="titles" >Logowanie</div>
 						<div id="form">
 							<form action="login_operation.php" method="post">
-								<input type="text2" name="login" placeholder="login"><br />
+								<label>Podaj login</label>
+								<input type="text2" name="login" ><br />
 								<div class = "clearfix"></div>
-								<input type="password" name="password" placeholder="hasło"><br />
+								<label>Podaj hasło</label>
+								<input type="password" name="password" ><br />
 								<div class = "clearfix"></div>
 								<input type="submit" value="Zaloguj się" class="button"/><br/>
 								<?php if(isset($_SESSION['mistake'])) echo $_SESSION['mistake']; ?>
@@ -214,7 +216,8 @@
 						<div id="label_login" class="titles" >Zarejestruj</div>
 						<div id="reg_form">
 <form method="post">
-	<input type="text2" name="a_login" placeholder="Podaj login"><br/>
+	<label>Podaj login</label>
+	<input type="text2" name="a_login"><br/>
 	<?php
 			if (isset($_SESSION['e_login']))
 			{
@@ -222,32 +225,37 @@
 				unset($_SESSION['e_login']);
 			}
 	?>
-	<input type="password" name="a_password1" placeholder="Podaj hasło"><br/>
+	<label>Podaj hasło</label>
+	<input type="password" name="a_password1"><br/>
 		<?php
 			if (isset($_SESSION['e_password']))
 			{
 				echo '<div class="error">'.$_SESSION['e_password'].'</div>';
 				unset($_SESSION['e_password']);
 			}
-		?>		
-	<input type="password" name="a_password2" placeholder="Powtórz hasło"><br/>
-	<input type="text2" name="a_first_name" placeholder="Podaj imię"><br/>
+		?>
+	<label>Powrtórz hasło</label>		
+	<input type="password" name="a_password2"><br/>
+	<label>Podaj imię</label>
+	<input type="text2" name="a_first_name"><br/>
 		<?php
 			if (isset($_SESSION['e_first_name']))
 			{
 				echo '<div class="error">'.$_SESSION['e_first_name'].'</div>';
 				unset($_SESSION['e_first_name']);
 			}
-		?>		
-	<input type="text2" name="a_surname" placeholder="Podaj nazwisko"><br/>
+		?>
+	<label>Podaj nazwisko</label>		
+	<input type="text2" name="a_surname"><br/>
 		<?php
 			if (isset($_SESSION['e_surname']))
 			{
 				echo '<div class="error">'.$_SESSION['e_surname'].'</div>';
 				unset($_SESSION['e_surname']);
 			}
-		?>		
-	<input type="text2" name="a_email" placeholder="Podaj email"><br/>
+		?>
+	<label>Podaj email</label>
+	<input type="text2" name="a_email"><br/>
 	<?php
 			if (isset($_SESSION['e_email']))
 			{

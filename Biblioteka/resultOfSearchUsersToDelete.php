@@ -122,7 +122,7 @@ if(isset($_SESSION['log'])&&($_SESSION['log']==true)&&!empty($_POST))
                  echo " </td> </tr> ";
                  echo " </td> </tr> </table> ";
                  echo "<div class = 'clearfix'></div>";
-                 echo " <button class = 'button' name = 'delete' value = '$idUser' > Usuń </button> ";
+                 echo " <button class = 'button' name = 'delete' value = '$idUser' onclick =\"return confirm('Czy jestes pewien?');\"> Usuń </button> ";
                 echo "</form>";
 
         
